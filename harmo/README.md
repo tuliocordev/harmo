@@ -1,4 +1,4 @@
-# 🎵 Harmo — Biblioteca Online de Músicas
+# 🎵 Harmo — Catálogo de Músicas
 
 Sistema de catálogo musical desenvolvido com Laravel.
 Permite cadastrar, buscar e organizar músicas, artistas e álbuns.

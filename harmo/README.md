@@ -5,16 +5,11 @@ Permite cadastrar, buscar e organizar músicas, artistas e álbuns.
 
 ## Tecnologias
 - PHP 8.1+ / Laravel
-- MySQL
-- Blade Templates
-- Laravel Breeze (autenticação)
-- TailwindCSS
 
 ## Requisitos
 - PHP >= 8.1
 - Composer
 - Node.js >= 18
-- MySQL
 
 ## Funcionalidades
 - Catálogo de músicas, artistas e álbuns

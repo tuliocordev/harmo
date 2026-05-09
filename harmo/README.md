@@ -16,18 +16,6 @@ Permite cadastrar, buscar e organizar músicas, artistas e álbuns.
 - Node.js >= 18
 - MySQL
 
-## Instalação
-```bash
-git clone https://github.com/tuliocordev/harmo.git
-cd harmo
-composer install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate
-npm install && npm run dev
-php artisan serve
-```
-
 ## Funcionalidades
 - Catálogo de músicas, artistas e álbuns
 - Busca por nome, artista ou gênero

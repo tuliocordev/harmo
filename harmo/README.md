@@ -1,37 +1,81 @@
-# 🎵 Harmo — Catálogo de Músicas
+Table users {
+  id bigint [pk, increment]
+  name varchar(255) [not null]
+  email varchar(255) [not null, unique]
+  password varchar(255) [not null]
+  role varchar(20) [not null, default: 'user', note: 'user ou admin']
+  avatar varchar(255)
+  email_verified_at timestamp
+  remember_token varchar(100)
+  created_at timestamp
+  updated_at timestamp
+}
 
-Sistema de catálogo musical desenvolvido com Laravel.
-Permite cadastrar, buscar e organizar músicas, artistas e álbuns.
+Table genres {
+  id bigint [pk, increment]
+  name varchar(100) [not null, unique]
+  slug varchar(100) [not null, unique]
+  created_at timestamp
+  updated_at timestamp
+}
 
-## Tecnologias
-- PHP 8.2+ / Laravel 11
-- MySQL 8
-- Blade Templates
-- Laravel Breeze (autenticação)
-- TailwindCSS
+Table artists {
+  id bigint [pk, increment]
+  name varchar(255) [not null]
+  slug varchar(255) [not null, unique]
+  bio text
+  photo varchar(255)
+  country varchar(100)
+  created_at timestamp
+  updated_at timestamp
+}
 
-## Requisitos
-- PHP >= 8.2
-- Composer
-- Node.js >= 18
-- MySQL
+Table albums {
+  id bigint [pk, increment]
+  title varchar(255) [not null]
+  slug varchar(255) [not null, unique]
+  artist_id bigint [not null, ref: > artists.id]
+  cover varchar(255)
+  release_year year
+  created_at timestamp
+  updated_at timestamp
+}
 
-## Instalação
-git clone https://github.com/tuliocordev/harmo.git
-cd harmo
-composer install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate --seed
-npm install && npm run dev
-php artisan serve
+Table songs {
+  id bigint [pk, increment]
+  title varchar(255) [not null]
+  slug varchar(255) [not null, unique]
+  artist_id bigint [not null, ref: > artists.id]
+  album_id bigint [ref: > albums.id]
+  genre_id bigint [ref: > genres.id]
+  duration smallint
+  track_number tinyint
+  lyrics longtext
+  cover varchar(255)
+  created_at timestamp
+  updated_at timestamp
+}
 
-## Funcionalidades
-- Catálogo de músicas, artistas e álbuns
-- Busca por nome, artista ou gênero
-- Sistema de favoritos
-- Playlists pessoais
-- Painel administrativo
+Table favorites {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  song_id bigint [not null, ref: > songs.id]
+  created_at timestamp
+}
 
-## Autor
-tuliocordev - Desenvolvido para a disciplina de Desenvolvimento Web.
+Table playlists {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  name varchar(255) [not null]
+  description text
+  is_public boolean [default: false]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table playlist_song {
+  playlist_id bigint [not null, ref: > playlists.id]
+  song_id bigint [not null, ref: > songs.id]
+  order tinyint [default: 0]
+  created_at timestamp
+}

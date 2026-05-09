@@ -1,3 +1,45 @@
+# 🎵 Harmo — Catálogo de Músicas
+
+Sistema de catálogo musical desenvolvido com Laravel.
+Permite cadastrar, buscar e organizar músicas, artistas e álbuns.
+
+## Tecnologias
+- PHP 8.1+ / Laravel
+- MySQL
+- Blade Templates
+- Laravel Breeze (autenticação)
+- TailwindCSS
+
+## Requisitos
+- PHP >= 8.1
+- Composer
+- Node.js >= 18
+- MySQL
+
+## Instalação
+```bash
+git clone https://github.com/tuliocordev/harmo.git
+cd harmo
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+npm install && npm run dev
+php artisan serve
+```
+
+## Funcionalidades
+- Catálogo de músicas, artistas e álbuns
+- Busca por nome, artista ou gênero
+- Sistema de favoritos
+- Playlists pessoais
+- Painel administrativo
+
+## Modelagem do Banco de Dados
+
+Diagrama feito no [dbdiagram.io](https://dbdiagram.io)
+
+```
 Table users {
   id bigint [pk, increment]
   name varchar(255) [not null]
@@ -79,3 +121,7 @@ Table playlist_song {
   order tinyint [default: 0]
   created_at timestamp
 }
+```
+
+## Autor
+Desenvolvido para a disciplina de Desenvolvimento Web.

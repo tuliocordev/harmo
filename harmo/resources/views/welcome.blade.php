@@ -1,27 +1,20 @@
 <x-app-layout>
     <!-- Banner principal -->
-    <div class="bg-harmo text-white py-5">
+    <div class="text-white py-5" style="background-color: #1a0a35;">
         <div class="container text-center py-4">
-            <h1 class="display-4 fw-bold">🎵 Harmo</h1>
+            <h1 class="display-4 fw-bold">HARMO</h1>
             <p class="lead mb-4">Explore músicas, artistas e álbuns em um só lugar</p>
             <form class="d-flex justify-content-center gap-2" action="{{ route('songs.search') }}" method="GET">
                 <input class="form-control form-control-lg w-50" type="search" name="q" placeholder="Buscar músicas, artistas ou gêneros...">
-                <button class="btn btn-light btn-lg" type="submit">
+                <button class="btn btn-outline-light btn-lg" type="submit">
                     <i class="bi bi-search"></i> Buscar
                 </button>
             </form>
-            @guest
-                <div class="mt-4">
-                    <a href="{{ route('register') }}" class="btn btn-light btn-lg me-2">Criar conta</a>
-                    <a href="{{ route('login') }}" class="btn btn-outline-light btn-lg">Entrar</a>
-                </div>
-            @endguest
         </div>
     </div>
 
     <div class="container py-5">
 
-        <!-- Músicas recentes -->
         <section class="mb-5">
             <h2 class="fw-bold text-harmo mb-4">
                 <i class="bi bi-music-note-list"></i> Músicas Recentes
@@ -41,9 +34,7 @@
                                     @endif
                                 </div>
                                 <div class="card-footer">
-                                    <a href="{{ route('songs.show', $song) }}" class="btn btn-sm btn-harmo">
-                                        Ver detalhes
-                                    </a>
+                                    <a href="{{ route('songs.show', $song) }}" class="btn btn-sm btn-harmo">Ver detalhes</a>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +55,6 @@
             @endif
         </section>
 
-        <!-- Artistas populares -->
         <section class="mb-5">
             <h2 class="fw-bold text-harmo mb-4">
                 <i class="bi bi-person-circle"></i> Artistas
@@ -75,14 +65,12 @@
                         <div class="col-md-3">
                             <div class="card text-center h-100 shadow-sm">
                                 <div class="card-body">
-                                    <div class="display-1 mb-2">🎤</div>
+                                    <i class="bi bi-person-circle display-4 mb-2 text-harmo"></i>
                                     <h5 class="card-title">{{ $artist->name }}</h5>
                                     <p class="text-muted small">{{ $artist->songs_count }} música(s)</p>
                                 </div>
                                 <div class="card-footer">
-                                    <a href="{{ route('artists.show', $artist) }}" class="btn btn-sm btn-harmo">
-                                        Ver artista
-                                    </a>
+                                    <a href="{{ route('artists.show', $artist) }}" class="btn btn-sm btn-harmo">Ver artista</a>
                                 </div>
                             </div>
                         </div>

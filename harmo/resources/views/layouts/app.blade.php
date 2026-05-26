@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         :root {
             --harmo-purple: #3D1A6E;
@@ -25,10 +24,9 @@
         }
 
         .navbar-harmo {
-            background-color: var(--harmo-purple);
+            background-color: #000000;
             padding-top: 18px;
             padding-bottom: 18px;
-            border-bottom: 2px solid #2a2a2a;
         }
 
         .navbar-harmo .navbar-brand {
@@ -48,18 +46,13 @@
         }
 
         .navbar-brand img {
+            mix-blend-mode: screen;
             filter: drop-shadow(0 0 6px rgba(160, 110, 224, 0.5));
             transition: filter 0.2s ease;
         }
 
         .navbar-brand:hover img {
             filter: drop-shadow(0 0 10px rgba(160, 110, 224, 0.9));
-        }
-
-        .page-divider {
-            border: none;
-            border-top: 1px solid #2a2a2a;
-            margin: 0;
         }
 
         .btn-harmo {
@@ -100,6 +93,7 @@
         }
 
         .footer-logo {
+            mix-blend-mode: screen;
             filter: drop-shadow(0 0 4px rgba(160, 110, 224, 0.4));
         }
 
@@ -141,7 +135,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-harmo">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="HARMO" height="12">
+                <img src="{{ asset('images/logo.png') }}" alt="HARMO" height="92" style="mix-blend-mode: screen;">
                 HARMO
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
@@ -207,15 +201,13 @@
         </div>
     </nav>
 
-    <hr class="page-divider">
-
     <main>
         {{ $slot }}
     </main>
 
     <footer class="text-light py-4 mt-5">
-        <div class="container text-center">
-            <img src="{{ asset('images/logo.png') }}" alt="HARMO" height="1" class="footer-logo mb-2">
+        <div class="container d-flex flex-column align-items-center text-center">
+            <img src="{{ asset('images/logo.png') }}" alt="HARMO" height="92" class="footer-logo mb-2 mx-auto d-block">
             <p class="mb-0" style="color: #555;">HARMO — Catálogo de Músicas</p>
         </div>
     </footer>

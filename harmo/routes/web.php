@@ -8,9 +8,9 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ProfileController;
 
-Route::get('/', [SongController::class, 'index'])->name('home');
+Route::get('/', [SongController::class, 'home'])->name('home');
 
-Route::get('/dashboard', [SongController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [SongController::class, 'home'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/songs', [SongController::class, 'index'])->name('songs.index');
 Route::get('/songs/search', [SongController::class, 'search'])->name('songs.search');
@@ -33,5 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/admin', function () {
+    return view('admin.index');
+})->middleware(['auth'])->name('admin.index');
 
 require __DIR__.'/auth.php';

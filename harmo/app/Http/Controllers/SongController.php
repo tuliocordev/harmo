@@ -10,11 +10,17 @@ use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
+    public function home()
+    {
+        $songs = Song::with(['artist', 'album', 'genre'])->latest()->take(6)->get();
+        $artists = Artist::withCount('songs')->take(8)->get();
+        return view('welcome', compact('songs', 'artists'));
+    }
+
     public function index()
     {
-    $songs = Song::with(['artist', 'album', 'genre'])->latest()->take(6)->get();
-    $artists = Artist::withCount('songs')->take(8)->get();
-    return view('welcome', compact('songs', 'artists'));
+        $songs = Song::with(['artist', 'album', 'genre'])->latest()->get();
+        return view('songs.index', compact('songs'));
     }
 
     public function show(Song $song)

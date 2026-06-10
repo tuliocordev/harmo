@@ -7,8 +7,16 @@
                 @foreach($artists as $artist)
                     <div class="col-md-3">
                         <div class="card text-center h-100">
+                            @if($artist->photo)
+                                <img src="{{ asset($artist->photo) }}"
+                                    class="card-img-top" alt="{{ $artist->name }}"
+                                    style="height: 200px; object-fit: cover;">
+                            @else
+                                <div style="height: 200px; background-color: #1a1a1a; display: flex; align-items: center; justify-content: center;">
+                                    <i class="bi bi-person-circle" style="font-size: 3rem; color: #444;"></i>
+                                </div>
+                            @endif
                             <div class="card-body">
-                                <i class="bi bi-mic display-4 mb-2 text-harmo"></i>
                                 <h5 class="card-title">{{ $artist->name }}</h5>
                                 <p class="text-muted small">{{ $artist->songs_count }} música(s)</p>
                             </div>

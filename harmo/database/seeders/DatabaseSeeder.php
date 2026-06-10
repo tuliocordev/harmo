@@ -24,13 +24,24 @@ class DatabaseSeeder extends Seeder
             'Rock Nacional', 'Rock Alternativo', 'Trap', 'Hard Rock', 'Funk'
         ])->map(fn($name) => Genre::create(['name' => $name, 'slug' => Str::slug($name)]));
 
-        $artists = collect([
-            'Los Hermanos', 'The Strokes', 'Matue', 'Guns N Roses', 'MC GW'
-        ])->map(fn($name) => Artist::create(['name' => $name, 'slug' => Str::slug($name)]));
+        $artistsData = [
+            ['name' => 'Los Hermanos', 'photo' => 'los-hermanos.jpg'],
+            ['name' => 'The Strokes', 'photo' => 'the-strokes.jpg'],
+            ['name' => 'Matue', 'photo' => 'matue.jpg'],
+            ['name' => 'Guns N Roses', 'photo' => 'guns-n-roses.jpg'],
+            ['name' => 'MC GW', 'photo' => 'mc-gw.jpg'],
+        ];
+
+        $artists = collect($artistsData)->map(fn($a) => Artist::create([
+            'name' => $a['name'],
+            'slug' => Str::slug($a['name']),
+            'photo' => $a['photo'],
+        ]));
 
         $albumsData = [
             [
                 'title' => 'Bloco do Eu Sozinho',
+                'cover' => 'bloco-do-eu-sozinho.jpg',
                 'artist' => 0,
                 'genre' => 0,
                 'year' => 2001,
@@ -38,6 +49,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'title' => 'Is This It',
+                'cover' => 'is-this-it.jpg',
                 'artist' => 1,
                 'genre' => 1,
                 'year' => 2001,
@@ -45,6 +57,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'title' => '333',
+                'cover' => '333.jpg',
                 'artist' => 2,
                 'genre' => 2,
                 'year' => 2019,
@@ -52,6 +65,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'title' => 'Appetite for Destruction',
+                'cover' => 'appetite-for-destruction.jpg',
                 'artist' => 3,
                 'genre' => 3,
                 'year' => 1987,
@@ -59,6 +73,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'title' => 'Os Melhores do Funk',
+                'cover' => 'os-melhores-do-funk.jpg',
                 'artist' => 4,
                 'genre' => 4,
                 'year' => 2022,
@@ -71,6 +86,7 @@ class DatabaseSeeder extends Seeder
                 'title' => $data['title'],
                 'slug' => Str::slug($data['title']),
                 'artist_id' => $artists[$data['artist']]->id,
+                'cover' => $data['cover'],
                 'release_year' => $data['year'],
             ]);
 

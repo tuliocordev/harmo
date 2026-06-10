@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Song extends Model
 {
     protected $fillable = [
-        'title',
-        'slug',
-        'artist_id',
-        'album_id',
-        'genre_id',
-        'duration',
-        'track_number',
-        'lyrics',
-        'cover',
+    'title',
+    'slug',
+    'artist_id',
+    'album_id',
+    'genre_id',
+    'duration',
+    'track_number',
+    'lyrics',
+    'cover',
+    'youtube_url',
     ];
 
     public function artist()

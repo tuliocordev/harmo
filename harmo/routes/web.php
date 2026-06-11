@@ -7,6 +7,7 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FavoriteController;
 
 Route::get('/', [SongController::class, 'home'])->name('home');
 
@@ -27,8 +28,15 @@ Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('genres.sh
 
 Route::middleware('auth')->group(function () {
     Route::get('/playlists', [PlaylistController::class, 'index'])->name('playlists.index');
-    Route::get('/playlists/{playlist}', [PlaylistController::class, 'show'])->name('playlists.show');
     Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
+    Route::get('/playlists/{playlist}', [PlaylistController::class, 'show'])->name('playlists.show');
+    Route::delete('/playlists/{playlist}', [PlaylistController::class, 'destroy'])->name('playlists.destroy');
+    Route::post('/playlists/{playlist}/songs', [PlaylistController::class, 'addSong'])->name('playlists.songs.add');
+    Route::delete('/playlists/{playlist}/songs/{song}', [PlaylistController::class, 'removeSong'])->name('playlists.songs.remove');
+
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites/{song}', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -60,6 +68,17 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/artists/{artist}/edit', [App\Http\Controllers\Admin\ArtistController::class, 'edit'])->name('artists.edit');
     Route::put('/artists/{artist}', [App\Http\Controllers\Admin\ArtistController::class, 'update'])->name('artists.update');
     Route::delete('/artists/{artist}', [App\Http\Controllers\Admin\ArtistController::class, 'destroy'])->name('artists.destroy');
+
+    // Genres
+    Route::get('/genres', [App\Http\Controllers\Admin\GenreController::class, 'index'])->name('genres.index');
+    Route::post('/genres', [App\Http\Controllers\Admin\GenreController::class, 'store'])->name('genres.store');
+    Route::put('/genres/{genre}', [App\Http\Controllers\Admin\GenreController::class, 'update'])->name('genres.update');
+    Route::delete('/genres/{genre}', [App\Http\Controllers\Admin\GenreController::class, 'destroy'])->name('genres.destroy');
+
+    // Users
+    Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
+    Route::put('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -15,7 +15,7 @@
                         <i class="bi bi-music-note" style="font-size: 3rem; color: #555;"></i>
                     </div>
                 @endif
-                <div>
+                <div class="flex-grow-1">
                     <h1 class="fw-bold mb-1">{{ $song->title }}</h1>
                     <p class="text-muted mb-1">
                         <i class="bi bi-person"></i>
@@ -37,9 +37,66 @@
                     @if($song->duration)
                         <span class="text-muted small ms-2"><i class="bi bi-clock"></i> {{ gmdate('i:s', $song->duration) }}</span>
                     @endif
+
+                    {{-- Botões de ação --}}
+                    @auth
+                        <div class="mt-3 d-flex gap-2 flex-wrap">
+
+                            {{-- Favoritar --}}
+                            @php $isFavorited = auth()->user()->favorites()->where('song_id', $song->id)->exists(); @endphp
+                            <form method="POST" action="{{ route('favorites.toggle', $song) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-sm {{ $isFavorited ? 'btn-danger' : 'btn-outline-danger' }}">
+                                    <i class="bi bi-heart{{ $isFavorited ? '-fill' : '' }}"></i>
+                                    {{ $isFavorited ? 'Favoritado' : 'Favoritar' }}
+                                </button>
+                            </form>
+
+                            {{-- Adicionar à playlist --}}
+                            @php $playlists = auth()->user()->playlists()->get(); @endphp
+                            @if($playlists->count() > 0)
+                                <div class="dropdown">
+                                    <button class="btn btn-harmo btn-sm dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown">
+                                        <i class="bi bi-collection-play"></i> Adicionar à playlist
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        @foreach($playlists as $playlist)
+                                            <li>
+                                                <form method="POST"
+                                                      action="{{ route('playlists.songs.add', $playlist) }}">
+                                                    @csrf
+                                                    <input type="hidden" name="song_id" value="{{ $song->id }}">
+                                                    <button type="submit" class="dropdown-item">
+                                                        <i class="bi bi-plus"></i> {{ $playlist->name }}
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        @endforeach
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('playlists.index') }}">
+                                                <i class="bi bi-gear"></i> Gerenciar playlists
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @else
+                                <a href="{{ route('playlists.index') }}" class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-collection-play"></i> Criar playlist
+                                </a>
+                            @endif
+
+                        </div>
+                    @endauth
+
                 </div>
             </div>
         </div>
+
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
         @if($song->youtube_url)
             <div class="card p-4 mb-4">

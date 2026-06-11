@@ -20,6 +20,8 @@ class Playlist extends Model
 
     public function songs()
     {
-        return $this->belongsToMany(Song::class, 'playlist_song')->withPivot('order');
+        return $this->belongsToMany(Song::class, 'playlist_song')
+                    ->withPivot('order')
+                    ->orderBy('playlist_song.order');
     }
 }

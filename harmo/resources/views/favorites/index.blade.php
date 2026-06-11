@@ -1,19 +1,9 @@
 <x-app-layout>
     <div class="container py-5">
+        <h2 class="fw-bold text-harmo mb-4"><i class="bi bi-heart-fill"></i> Músicas Favoritas</h2>
 
-        <form class="d-flex gap-2 mb-5" action="{{ route('songs.search') }}" method="GET">
-            <input class="form-control form-control-lg" type="search" name="q"
-                   value="{{ $query }}" placeholder="Buscar músicas, artistas ou gêneros...">
-            <button class="btn btn-harmo btn-lg" type="submit">
-                <i class="bi bi-search"></i> Buscar
-            </button>
-        </form>
-
-        @if($query)
-            <h4 class="fw-bold text-harmo mb-4">
-                Resultados para: <span style="color:#f0f0f0;">"{{ $query }}"</span>
-                <small class="text-muted" style="font-size:1rem;">— {{ $songs->count() }} encontrada(s)</small>
-            </h4>
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
         @if($songs->count() > 0)
@@ -47,22 +37,27 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="card-footer">
-                                <a href="{{ route('songs.show', $song) }}" class="btn btn-sm btn-harmo">Ver detalhes</a>
+                            <div class="card-footer d-flex gap-2">
+                                <a href="{{ route('songs.show', $song) }}" class="btn btn-sm btn-harmo flex-grow-1">
+                                    Ver detalhes
+                                </a>
+                                <form method="POST" action="{{ route('favorites.toggle', $song) }}">
+                                    @csrf
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-heart-fill"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
         @else
-            @if($query)
-                <div class="text-center py-5">
-                    <i class="bi bi-search" style="font-size:3rem;color:#444;"></i>
-                    <p class="mt-3 text-muted">Nenhuma música encontrada para "{{ $query }}".</p>
-                    <a href="{{ route('songs.index') }}" class="btn btn-harmo mt-2">Ver todas as músicas</a>
-                </div>
-            @endif
+            <div class="text-center py-5">
+                <i class="bi bi-heart" style="font-size:3rem;color:#444;"></i>
+                <p class="mt-3 text-muted">Você ainda não tem músicas favoritas.</p>
+                <a href="{{ route('songs.index') }}" class="btn btn-harmo mt-2">Explorar músicas</a>
+            </div>
         @endif
-
     </div>
 </x-app-layout>

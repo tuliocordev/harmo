@@ -174,16 +174,29 @@
                                 <i class="bi bi-person-fill"></i> {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{{ route('playlists.index') }}">Minhas Playlists</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('favorites.index') }}">
+                                        <i class="bi bi-heart-fill"></i> Favoritos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('playlists.index') }}">
+                                        <i class="bi bi-collection-play"></i> Minhas Playlists
+                                    </a>
+                                </li>
                                 @if(Auth::user()->isAdmin())
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="/admin">Painel Admin</a></li>
+                                    <li><a class="dropdown-item" href="/admin">
+                                        <i class="bi bi-speedometer2"></i> Painel Admin
+                                    </a></li>
                                 @endif
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button class="dropdown-item" type="submit">Sair</button>
+                                        <button class="dropdown-item" type="submit">
+                                            <i class="bi bi-box-arrow-right"></i> Sair
+                                        </button>
                                     </form>
                                 </li>
                             </ul>
